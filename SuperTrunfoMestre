@@ -1,0 +1,102 @@
+#include <stdio.h>
+
+// Estrutura para armazenar os dados de uma carta
+typedef struct {
+    char codigo[4]; // Código do estado e cidade (ex: A01)
+    char pais[50];
+    int populacao;
+    float area;
+    float pib;
+    int pontos_turisticos;
+    float densidade_demografica; // Calculada como população / área
+} Carta;
+
+int main() {
+    // Cartas já cadastradas (exemplo)
+    Carta carta1 = {"A01", "Brasil", 211049527, 8515767.0, 2.055, 35000, 24.8};
+    Carta carta2 = {"B02", "Argentina", 45195777, 2780400.0, 0.519, 10000, 16.2};
+
+    int escolha;
+    printf("Escolha o atributo para comparação:\n");
+    printf("1. População\n");
+    printf("2. Área\n");
+    printf("3. PIB\n");
+    printf("4. Número de pontos turísticos\n");
+    printf("5. Densidade demográfica\n");
+    printf("Escolha: ");
+    scanf("%d", &escolha);
+
+    switch (escolha) {
+        case 1: { // Comparação de População
+            printf("Comparando População:\n");
+            printf("Carta 1 (%s) - População: %d\n", carta1.pais, carta1.populacao);
+            printf("Carta 2 (%s) - População: %d\n", carta2.pais, carta2.populacao);
+            if (carta1.populacao > carta2.populacao) {
+                printf("A carta 1 venceu!\n");
+            } else if (carta1.populacao < carta2.populacao) {
+                printf("A carta 2 venceu!\n");
+            } else {
+                printf("Empate!\n");
+            }
+            break;
+        }
+        case 2: { // Comparação de Área
+            printf("Comparando Área:\n");
+            printf("Carta 1 (%s) - Área: %.2f km²\n", carta1.pais, carta1.area);
+            printf("Carta 2 (%s) - Área: %.2f km²\n", carta2.pais, carta2.area);
+            if (carta1.area > carta2.area) {
+                printf("A carta 1 venceu!\n");
+            } else if (carta1.area < carta2.area) {
+                printf("A carta 2 venceu!\n");
+            } else {
+                printf("Empate!\n");
+            }
+            break;
+        }
+        case 3: { // Comparação de PIB
+            printf("Comparando PIB:\n");
+            printf("Carta 1 (%s) - PIB: %.2f bilhões\n", carta1.pais, carta1.pib);
+            printf("Carta 2 (%s) - PIB: %.2f bilhões\n", carta2.pais, carta2.pib);
+            if (carta1.pib > carta2.pib) {
+                printf("A carta 1 venceu!\n");
+            } else if (carta1.pib < carta2.pib) {
+                printf("A carta 2 venceu!\n");
+            } else {
+                printf("Empate!\n");
+            }
+            break;
+        }
+        case 4: { // Comparação de Pontos turísticos
+            printf("Comparando Pontos turísticos:\n");
+            printf("Carta 1 (%s) - Pontos turísticos: %d\n", carta1.pais, carta1.pontos_turisticos);
+            printf("Carta 2 (%s) - Pontos turísticos: %d\n", carta2.pais, carta2.pontos_turisticos);
+            if (carta1.pontos_turisticos > carta2.pontos_turisticos) {
+                printf("A carta 1 venceu!\n");
+            } else if (carta1.pontos_turisticos < carta2.pontos_turisticos) {
+                printf("A carta 2 venceu!\n");
+            } else {
+                printf("Empate!\n");
+            }
+            break;
+        }
+        case 5: { // Comparação de Densidade Demográfica
+            printf("Comparando Densidade Demográfica:\n");
+            printf("Carta 1 (%s) - Densidade Demográfica: %.2f habitantes/km²\n", carta1.pais, carta1.densidade_demografica);
+            printf("Carta 2 (%s) - Densidade Demográfica: %.2f habitantes/km²\n", carta2.pais, carta2.densidade_demografica);
+            if (carta1.densidade_demografica < carta2.densidade_demografica) {
+                printf("A carta 1 venceu!\n");
+            } else if (carta1.densidade_demografica > carta2.densidade_demografica) {
+                printf("A carta 2 venceu!\n");
+            } else {
+                printf("Empate!\n");
+            }
+            break;
+        }
+        default: {
+            printf("Opção inválida!\n");
+            break;
+        }
+    }
+
+    return 0;
+}
