@@ -1,0 +1,107 @@
+#include <stdio.h>
+
+// Estrutura para armazenar os dados de uma carta
+typedef struct {
+    char codigo[4]; // Código do estado e cidade (ex: A01, B02)
+    char nome[50]; // Nome da cidade
+    int populacao;
+    float area;
+    float pib;
+    int pontos_turisticos;
+    float densidade_demografica;
+    float pib_per_capita;
+} Carta;
+
+int main() {
+    Carta carta1, carta2;
+    int escolha1, escolha2;
+
+    // Cadastro da primeira carta
+    printf("Cadastro da primeira carta:\n");
+    printf("Digite o código da cidade (ex: A01): ");
+    scanf("%3s", carta1.codigo);
+    getchar();
+    printf("Digite o nome da cidade: ");
+    fgets(carta1.nome, sizeof(carta1.nome), stdin);
+    printf("Digite a população: ");
+    scanf("%d", &carta1.populacao);
+    printf("Digite a área (em km²): ");
+    scanf("%f", &carta1.area);
+    printf("Digite o PIB (em bilhões): ");
+    scanf("%f", &carta1.pib);
+    printf("Digite o número de pontos turísticos: ");
+    scanf("%d", &carta1.pontos_turisticos);
+    carta1.densidade_demografica = carta1.populacao / carta1.area;
+    carta1.pib_per_capita = carta1.pib / carta1.populacao;
+
+    // Cadastro da segunda carta
+    printf("\nCadastro da segunda carta:\n");
+    printf("Digite o código da cidade (ex: A01): ");
+    scanf("%3s", carta2.codigo);
+    getchar();
+    printf("Digite o nome da cidade: ");
+    fgets(carta2.nome, sizeof(carta2.nome), stdin);
+    printf("Digite a população: ");
+    scanf("%d", &carta2.populacao);
+    printf("Digite a área (em km²): ");
+    scanf("%f", &carta2.area);
+    printf("Digite o PIB (em bilhões): ");
+    scanf("%f", &carta2.pib);
+    printf("Digite o número de pontos turísticos: ");
+    scanf("%d", &carta2.pontos_turisticos);
+    carta2.densidade_demografica = carta2.populacao / carta2.area;
+    carta2.pib_per_capita = carta2.pib / carta2.populacao;
+
+    // Menu para escolha dos atributos de comparação
+    printf("\nEscolha dois atributos para comparar:\n");
+    printf("1 - População\n2 - Área\n3 - PIB\n4 - Número de pontos turísticos\n5 - Densidade demográfica (vence o menor)\n6 - PIB per capita\n");
+    printf("Digite sua primeira escolha: ");
+    scanf("%d", &escolha1);
+    do {
+        printf("Digite sua segunda escolha (diferente da primeira): ");
+        scanf("%d", &escolha2);
+    } while (escolha2 == escolha1);
+
+    float valor1_carta1, valor1_carta2, valor2_carta1, valor2_carta2;
+    int inverso = 0;
+
+    // Atribuir valores com base nas escolhas
+    switch (escolha1) {
+        case 1: valor1_carta1 = carta1.populacao; valor1_carta2 = carta2.populacao; break;
+        case 2: valor1_carta1 = carta1.area; valor1_carta2 = carta2.area; break;
+        case 3: valor1_carta1 = carta1.pib; valor1_carta2 = carta2.pib; break;
+        case 4: valor1_carta1 = carta1.pontos_turisticos; valor1_carta2 = carta2.pontos_turisticos; break;
+        case 5: valor1_carta1 = carta1.densidade_demografica; valor1_carta2 = carta2.densidade_demografica; inverso = 1; break;
+        case 6: valor1_carta1 = carta1.pib_per_capita; valor1_carta2 = carta2.pib_per_capita; break;
+    }
+
+    switch (escolha2) {
+        case 1: valor2_carta1 = carta1.populacao; valor2_carta2 = carta2.populacao; break;
+        case 2: valor2_carta1 = carta1.area; valor2_carta2 = carta2.area; break;
+        case 3: valor2_carta1 = carta1.pib; valor2_carta2 = carta2.pib; break;
+        case 4: valor2_carta1 = carta1.pontos_turisticos; valor2_carta2 = carta2.pontos_turisticos; break;
+        case 5: valor2_carta1 = carta1.densidade_demografica; valor2_carta2 = carta2.densidade_demografica; inverso = 1; break;
+        case 6: valor2_carta1 = carta1.pib_per_capita; valor2_carta2 = carta2.pib_per_capita; break;
+    }
+
+    // Comparação dos atributos
+    int pontos_carta1 = 0, pontos_carta2 = 0;
+    pontos_carta1 += (inverso ? (valor1_carta1 < valor1_carta2) : (valor1_carta1 > valor1_carta2));
+    pontos_carta2 += (inverso ? (valor1_carta2 < valor1_carta1) : (valor1_carta2 > valor1_carta1));
+    pontos_carta1 += (inverso ? (valor2_carta1 < valor2_carta2) : (valor2_carta1 > valor2_carta2));
+    pontos_carta2 += (inverso ? (valor2_carta2 < valor2_carta1) : (valor2_carta2 > valor2_carta1));
+
+    // Exibição do resultado
+    printf("\nComparação:\n");
+    printf("%s: %.2f, %.2f\n", carta1.nome, valor1_carta1, valor2_carta1);
+    printf("%s: %.2f, %.2f\n", carta2.nome, valor1_carta2, valor2_carta2);
+    
+    if (pontos_carta1 > pontos_carta2)
+        printf("%s venceu!\n", carta1.nome);
+    else if (pontos_carta2 > pontos_carta1)
+        printf("%s venceu!\n", carta2.nome);
+    else
+        printf("Empate!\n");
+    
+    return 0;
+}
