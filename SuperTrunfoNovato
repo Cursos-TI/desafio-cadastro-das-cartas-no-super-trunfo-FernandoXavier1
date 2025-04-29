@@ -1,12 +1,11 @@
-#include <stdio.h>
+#include <stdio.h>  // Biblioteca padrão de entrada e saída
 
-// Estrutura para armazenar os dados de uma carta
-typedef struct {
+typedef struct {    // Estrutura para armazenar os dados de uma carta
     char codigo[4]; // Código do estado e cidade (ex: A01, B02)
-    int populacao;
-    float area;
-    float pib;
-    int pontos_turisticos;
+    int populacao;  // População da cidade
+    float area;     // Área da cidade
+    float pib;      // PIB da cidade
+    int pontos_turisticos; // Número de pontos turísticos
 } Carta;
 
 int main() {
@@ -54,5 +53,10 @@ int main() {
     printf("PIB: %.2f bilhões\n", carta2.pib);
     printf("Pontos turísticos: %d\n", carta2.pontos_turisticos);
 
-    return 0;
+    // Espera o usuário apertar ENTER para encerrar
+    printf("\nPressione ENTER para sair...");
+    getchar(); // Captura o ENTER que ficou no buffer do teclado
+    getchar(); // Espera o usuário pressionar ENTER de verdade
+
+    return 0; // Fim do programa
 }
